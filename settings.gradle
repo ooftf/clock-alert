@@ -1,0 +1,3 @@
+include ':app'
+include ':BaiduLBS'
+rootProject.name = "clock-alert"

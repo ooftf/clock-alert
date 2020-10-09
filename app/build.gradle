@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+
+android {
+    compileSdkVersion 29
+
+    defaultConfig {
+        applicationId "com.ooftf.app.ca"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            //设置支持的SO库架构
+            abiFilters 'armeabi-v7a' //, 'x86','armeabi', 'armeabi-v7a', 'x86_64', 'arm64-v8a'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDir 'libs'
+        }
+    }
+    buildFeatures{
+        dataBinding true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    api 'com.ooftf:JLog:1.0.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    api "com.ooftf:arch-frame-mvvm:0.0.4"
+    implementation project(path: ':BaiduLBS')
+    implementation 'com.blankj:utilcodex:1.29.0'
+    implementation "io.reactivex.rxjava3:rxjava:3.0.6"
+    implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
+    implementation 'com.ooftf:basic:0.0.4'
+    implementation 'com.ooftf:master-widget-toolbar:1.1.3'
+    api 'com.github.tbruyelle:rxpermissions:0.12'
+    api 'com.ooftf:master-widget-dialog:1.1.0'
+}
