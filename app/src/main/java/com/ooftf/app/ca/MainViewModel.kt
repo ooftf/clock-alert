@@ -20,11 +20,15 @@ import io.reactivex.rxjava3.disposables.Disposable
 class MainViewModel(application: Application) : BaseViewModel(application) {
     val data = CAData()
     val isRunning = InitLiveData(false)
+    val startH = InitLiveData("17")
+    val startM = InitLiveData("50")
+    val endH = InitLiveData("23")
+    val endM = InitLiveData("00")
 
     init {
         data.longitude.value = "116.317372"
         data.latitude.value = "39.982946"
-        data.area.value = "100"
+        data.area.value = "60"
     }
 
     fun getCoordinate() {
@@ -57,6 +61,7 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) {
+                TimeTask.setParams(startH.value.toInt(),startM.value.toInt(),endH.value.toInt(),endM.value.toInt())
                 TimeTask.startClock()
                 LocationWarn.setWarnParam(
                     data.latitude.value.toDouble(),

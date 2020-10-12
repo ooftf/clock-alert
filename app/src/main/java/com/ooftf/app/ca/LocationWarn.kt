@@ -50,13 +50,15 @@ object LocationWarn {
                     LatLng(lat, lng),
                     LatLng(bdLocation.latitude, bdLocation.longitude)
                 )
+                JLog.e("distance", "定位偏离距离：${distance}，报警距离${area}")
                 if (distance > area) {
-                    AppHolder.app?.let {
-                        val vibrator = it.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
-                        val patter = longArrayOf(1000, 1000, 2000, 50)
+                    val vibrator =
+                        AppHolder.app.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+                    JLog.e("vibrator.hasVibrator()::${vibrator.hasVibrator()}")
+                    if (vibrator.hasVibrator()) {
+                        val patter = longArrayOf(1000, 1000)
                         vibrator.vibrate(patter, 0)
                     }
-
                 }
             }
         })
@@ -138,6 +140,7 @@ object LocationWarn {
         locationClient.disableLocInForeground(true);
         locationClient.stop()
         isLocating.value = false
+        (AppHolder.app.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator).cancel()
     }
 
     var lat: Double = 0.0

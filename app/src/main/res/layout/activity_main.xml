@@ -12,7 +12,8 @@
         <import type="android.view.View" />
 
         <import type="com.ooftf.app.ca.LocationWarn" />
-        <import type="android.graphics.Color"/>
+
+        <import type="android.graphics.Color" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -62,73 +63,141 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/latitude" />
 
+        <TextView
+            android:gravity="center_vertical"
+            android:id="@+id/start"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="开始检测时间"
+            app:layout_constraintTop_toBottomOf="@+id/area" />
+
+        <TextView
+            android:gravity="center_vertical"
+            android:id="@+id/end"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:text="结束检测时间"
+            app:layout_constraintTop_toBottomOf="@+id/start" />
+        <EditText
+            android:inputType="number"
+            android:layout_marginStart="16dp"
+            android:id="@+id/startH"
+            app:layout_constraintStart_toEndOf="@+id/start"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:hint="时"
+            android:text="@={viewModel.startH}"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@+id/start"
+            app:layout_constraintBottom_toBottomOf="@+id/start"/>
+        <EditText
+            android:inputType="number"
+            android:layout_marginStart="16dp"
+            android:id="@+id/startM"
+            android:text="@={viewModel.startM}"
+            app:layout_constraintStart_toEndOf="@+id/startH"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:hint="分"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@+id/start"
+            app:layout_constraintBottom_toBottomOf="@+id/start"/>
+
+        <EditText
+            android:inputType="number"
+            android:layout_marginStart="16dp"
+            android:id="@+id/endH"
+            android:text="@={viewModel.endH}"
+            app:layout_constraintStart_toEndOf="@+id/end"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:hint="时"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@+id/end"
+            app:layout_constraintBottom_toBottomOf="@+id/end"/>
+        <EditText
+            android:inputType="number"
+            android:layout_marginStart="16dp"
+            android:id="@+id/endM"
+            android:text="@={viewModel.endM}"
+            app:layout_constraintStart_toEndOf="@+id/endH"
+            android:layout_width="100dp"
+            android:layout_height="0dp"
+            android:hint="分"
+            android:gravity="center"
+            app:layout_constraintTop_toTopOf="@+id/end"
+            app:layout_constraintBottom_toBottomOf="@+id/end"/>
         <Button
             android:id="@+id/coordinate"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:onClick="@{v->viewModel.getCoordinate()}"
             android:text="获取经纬度"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/area" />
+            app:layout_constraintTop_toBottomOf="@+id/end" />
 
         <Button
             android:id="@+id/startService"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:onClick="@{v->viewModel.startService()}"
             android:text="开启提醒"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/coordinate" />
 
-        <Button
-            android:id="@+id/pauseService"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:onClick="@{v->viewModel.pauseService()}"
-            android:text="暂停本次提醒"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/startService" />
 
-        <Button
-            android:id="@+id/stopService"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:onClick="@{v->viewModel.stopService()}"
-            android:text="永久关闭提醒"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/pauseService" />
+
         <TextView
             android:id="@+id/service"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="start|center_vertical"
             android:paddingStart="8dp"
+            android:text='@{viewModel.isRunning?"服务已开启...":"服务未开启"}'
+            android:textColor='@{viewModel.isRunning?Color.GREEN:Color.RED}'
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor='@{viewModel.isRunning?Color.GREEN:Color.RED}'
-            android:text='@{viewModel.isRunning?"服务已开启...":"服务未开启"}'
-            app:layout_constraintTop_toBottomOf="@+id/stopService" />
+            app:layout_constraintTop_toBottomOf="@+id/startService" />
+
         <TextView
-            android:paddingStart="8dp"
             android:id="@+id/location"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="start|center_vertical"
+            android:paddingStart="8dp"
+            android:text='@{LocationWarn.INSTANCE.isLocating?"定位已开启...":"定位未开启"}'
+            android:textColor='@{LocationWarn.INSTANCE.isLocating?Color.GREEN:Color.RED}'
             android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor='@{LocationWarn.INSTANCE.isLocating?Color.GREEN:Color.RED}'
-            android:text='@{LocationWarn.INSTANCE.isLocating?"定位已开启...":"定位未开启"}'
             app:layout_constraintTop_toBottomOf="@+id/service" />
+        <Button
+            android:id="@+id/pauseService"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:onClick="@{v->viewModel.pauseService()}"
+            android:text="暂停本次提醒"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location" />
 
+        <Button
+            android:id="@+id/stopService"
+            android:layout_width="0dp"
+            android:layout_height="80dp"
+            android:onClick="@{v->viewModel.stopService()}"
+            android:text="永久关闭提醒"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pauseService" />
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:visibility="@{viewModel.isRunning?View.GONE:View.VISIBLE}"
-            app:constraint_referenced_ids="longitude,latitude,area,coordinate,startService" />
+            app:constraint_referenced_ids="longitude,latitude,area,coordinate,startService,start,startH,startM,end,endH,endM" />
 
         <androidx.constraintlayout.widget.Group
             android:layout_width="wrap_content"

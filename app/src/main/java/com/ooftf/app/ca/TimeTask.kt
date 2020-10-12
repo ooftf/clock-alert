@@ -5,11 +5,23 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import com.ooftf.basic.AppHolder
+import com.ooftf.log.JLog
 import java.util.*
 
 object TimeTask {
     val REQEUST_CODE_START_ALARM = 12
     val REQEUST_CODE_START_END = 11
+    var startH = 17
+    var startM = 50
+    var endH = 23
+    var endM = 0
+    fun setParams(startH: Int, startM: Int, endH: Int, endM: Int) {
+        TimeTask.startH = startH
+        TimeTask.startM = startM
+        TimeTask.endH = endH
+        TimeTask.endM = endM
+    }
+
     fun startClock() {
         val current = Calendar.getInstance()
         val start = getStartTime()
@@ -30,6 +42,7 @@ object TimeTask {
             REQEUST_CODE_START_END,
             TimingReceiver.ACTION_ALARM_LOCATION_END
         )
+        JLog.e("" + current.after(start) + "," + current.before(end))
         if (current.after(start) && current.before(end)) {
             LocationWarn.startLocation()
         }
@@ -40,9 +53,9 @@ object TimeTask {
         return Calendar.getInstance().apply {
             set(
                 Calendar.HOUR_OF_DAY,
-                17
+                startH
             )
-            set(Calendar.MINUTE, 50)
+            set(Calendar.MINUTE, startM)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }
@@ -52,9 +65,9 @@ object TimeTask {
         return Calendar.getInstance().apply {
             set(
                 Calendar.HOUR_OF_DAY,
-                23
+                endH
             )
-            set(Calendar.MINUTE, 0)
+            set(Calendar.MINUTE, endM)
             set(Calendar.SECOND, 0)
             set(Calendar.MILLISECOND, 0)
         }
