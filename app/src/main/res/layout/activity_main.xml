@@ -30,6 +30,7 @@
             app:title="下班打卡提醒" />
 
         <EditText
+            android:layout_marginTop="8dp"
             android:id="@+id/longitude"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
