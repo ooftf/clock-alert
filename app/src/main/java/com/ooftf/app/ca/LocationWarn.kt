@@ -165,7 +165,9 @@ object LocationWarn {
     }
 
     fun restartLocation() {
-        locationClient.restart()
+        if (locationClient.isStarted && isLocating.value) {
+            locationClient.restart()
+        }
     }
 
 
