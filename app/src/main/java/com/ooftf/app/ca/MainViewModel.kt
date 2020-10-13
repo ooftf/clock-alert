@@ -61,7 +61,12 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
                 Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.ACCESS_FINE_LOCATION
             ) {
-                TimeTask.setParams(startH.value.toInt(),startM.value.toInt(),endH.value.toInt(),endM.value.toInt())
+                TimeTask.setParams(
+                    startH.value.toInt(),
+                    startM.value.toInt(),
+                    endH.value.toInt(),
+                    endM.value.toInt()
+                )
                 TimeTask.startClock()
                 LocationWarn.setWarnParam(
                     data.latitude.value.toDouble(),
@@ -74,8 +79,8 @@ class MainViewModel(application: Application) : BaseViewModel(application) {
 
     }
 
-    fun pauseService() {
-        LocationWarn.stopLocation()
+    fun stopVibrator() {
+        LocationWarn.stopVibrator()
     }
 
     fun stopService() {

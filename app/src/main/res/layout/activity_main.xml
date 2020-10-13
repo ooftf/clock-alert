@@ -22,28 +22,33 @@
         tools:context=".MainActivity">
 
         <com.ooftf.master.widget.toolbar.custom.MasterToolbar
-            app:titleColor="@color/white"
+            app:titleBold="true"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@color/colorPrimary"
             app:layout_constraintTop_toTopOf="parent"
-            app:title="下班打卡提醒" />
+            app:title="下班打卡提醒"
+            app:titleColor="@color/white" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" >
+            app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
             <EditText
                 android:id="@+id/longitude"
+                exBackgroundColor='@{"#F0F0F0"}'
+                exBackgroundRadius="@{4}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:hint="经度"
                 android:inputType="numberDecimal"
+                android:paddingHorizontal="8dp"
                 android:text="@={viewModel.data.longitude}"
                 android:visibility="@{viewModel.isRunning?View.GONE:View.VISIBLE}"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -52,10 +57,14 @@
 
             <EditText
                 android:id="@+id/latitude"
+                exBackgroundColor='@{"#F0F0F0"}'
+                exBackgroundRadius="@{4}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:hint="纬度"
                 android:inputType="numberDecimal"
+                android:paddingHorizontal="8dp"
                 android:text="@={viewModel.data.latitude}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -63,35 +72,49 @@
 
             <EditText
                 android:id="@+id/area"
+                exBackgroundColor='@{"#F0F0F0"}'
+                exBackgroundRadius="@{4}"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:hint="提醒范围（米）"
                 android:inputType="numberDecimal"
+                android:paddingHorizontal="8dp"
                 android:text="@={viewModel.data.area}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/latitude" />
 
             <TextView
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:id="@+id/start"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
-                android:text="开始检测时间"
+                android:text="开始检测时间："
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/area" />
 
             <TextView
+                android:textSize="16sp"
+                android:textStyle="bold"
                 android:id="@+id/end"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center_vertical"
-                android:text="结束检测时间"
+                android:text="结束检测时间："
+                android:textColor="@color/black"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/start" />
 
             <EditText
                 android:id="@+id/startH"
+                exBackgroundColor='@{"#F0F0F0"}'
+                exBackgroundRadius="@{4}"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
@@ -105,6 +128,8 @@
 
             <EditText
                 android:id="@+id/startM"
+                exBackgroundColor='@{"#F0F0F0"}'
+                exBackgroundRadius="@{4}"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
@@ -118,6 +143,8 @@
 
             <EditText
                 android:id="@+id/endH"
+                exBackgroundColor='@{"#F0F0F0"}'
+                exBackgroundRadius="@{4}"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
@@ -131,6 +158,8 @@
 
             <EditText
                 android:id="@+id/endM"
+                exBackgroundColor='@{"#F0F0F0"}'
+                exBackgroundRadius="@{4}"
                 android:layout_width="100dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
@@ -143,21 +172,33 @@
                 app:layout_constraintTop_toTopOf="@+id/end" />
 
             <Button
+                android:layout_marginTop="8dp"
                 android:id="@+id/coordinate"
+                exBackgroundColor='@{"#FF0000"}'
+                exBackgroundRadius="@{4}"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="52dp"
                 android:onClick="@{v->viewModel.getCoordinate()}"
                 android:text="获取经纬度"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/end" />
 
             <Button
+                android:layout_marginTop="8dp"
                 android:id="@+id/startService"
+                exBackgroundColor='@{"#FF0000"}'
+                exBackgroundRadius="@{4}"
                 android:layout_width="0dp"
-                android:layout_height="60dp"
+                android:layout_height="52dp"
                 android:onClick="@{v->viewModel.startService()}"
                 android:text="开启提醒"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/coordinate" />
@@ -174,7 +215,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/startService"
-                app:layout_goneMarginTop="8dp" />
+                android:layout_marginTop="8dp" />
 
             <TextView
                 android:id="@+id/location"
@@ -189,24 +230,22 @@
                 app:layout_constraintTop_toBottomOf="@+id/service" />
 
             <Button
-                android:textStyle="bold"
-                android:textColor="@color/black"
                 android:id="@+id/pauseService"
                 exBackgroundColor='@{"#FFFF00"}'
                 exBackgroundRadius="@{4}"
                 android:layout_width="0dp"
                 android:layout_height="80dp"
                 android:layout_marginTop="8dp"
-                android:onClick="@{v->viewModel.pauseService()}"
-                android:text="暂停本次提醒"
-                android:textSize="16sp"
+                android:onClick="@{v->viewModel.stopVibrator()}"
+                android:text="暂停震动"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/location" />
 
             <Button
-                android:textStyle="bold"
-                android:textColor="@color/white"
                 android:id="@+id/stopService"
                 exBackgroundColor='@{"#FF0000"}'
                 exBackgroundRadius="@{4}"
@@ -214,8 +253,10 @@
                 android:layout_height="80dp"
                 android:layout_marginTop="16dp"
                 android:onClick="@{v->viewModel.stopService()}"
-                android:text="永久关闭提醒"
-                android:textSize="16sp"
+                android:text="关闭提醒"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/pauseService" />

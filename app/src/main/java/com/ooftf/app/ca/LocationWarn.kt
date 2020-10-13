@@ -59,6 +59,7 @@ object LocationWarn {
                         val patter = longArrayOf(1000, 1000)
                         vibrator.vibrate(patter, 0)
                     }
+                    stopLocation()
                 }
             }
         })
@@ -140,6 +141,9 @@ object LocationWarn {
         locationClient.disableLocInForeground(true);
         locationClient.stop()
         isLocating.value = false
+    }
+
+    fun stopVibrator(){
         (AppHolder.app.getSystemService(Context.VIBRATOR_SERVICE) as Vibrator).cancel()
     }
 
